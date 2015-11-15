@@ -1,0 +1,20 @@
+SET foreign_key_checks = 0;
+DROP TABLE Data;
+DROP TABLE Comment;
+SET foreign_key_checks = 1;
+
+CREATE TABLE Data
+(
+id INT NOT NULL AUTO_INCREMENT,
+value INT NOT NULL,
+date DATETIME NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Comment
+(
+id INT NOT NULL AUTO_INCREMENT,
+comment VARCHAR(80) NOT NULL,
+date DATETIME NOT NULL,
+PRIMARY KEY (id)
+);
