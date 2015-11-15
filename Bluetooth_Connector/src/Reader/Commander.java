@@ -1,9 +1,7 @@
-package Main;
+package Reader;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
-import Reader.SerialReader;
 
 public class Commander implements Runnable {
 

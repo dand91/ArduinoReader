@@ -1,6 +1,5 @@
 package Reader;
 
-import java.util.Arrays;
 import java.util.Observable;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -22,6 +21,7 @@ public abstract class SerialReader extends Observable implements SerialPortEvent
 	protected StringBuilder sb = new StringBuilder();
 	protected SerialPort serialPort;
 	
+	@SuppressWarnings("static-access")
 	public SerialReader() throws SerialPortException {
 		
 		
