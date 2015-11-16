@@ -1,15 +1,14 @@
 package Reader;
 
 import java.util.NoSuchElementException;
-import java.util.StringTokenizer;
-
+//import java.util.StringTokenizer;
 import Storage.Database;
 import jssc.SerialPortException;
 
 public class BluetoothReader extends SerialReader{
 
 	
-	private StringTokenizer st;
+	//private StringTokenizer st;
 	private Database db;
 	
 	public BluetoothReader() throws SerialPortException  {
@@ -20,7 +19,6 @@ public class BluetoothReader extends SerialReader{
 			e.printStackTrace();
 		}
 	}
-	
 
 	public void run(){
 
@@ -58,28 +56,31 @@ public class BluetoothReader extends SerialReader{
 			int start = string.indexOf(s);
 			int end = string.indexOf( s + "*");
 									
-			newString = (String) sb.substring(start, end + 2);
+			newString = (String) sb.substring(start + 1, end);
 			sb.delete(start, end + 2 );
+
+		
+     		try{
+//				
+//			st = new StringTokenizer(newString);
+//			
+//			st.nextToken();
+//			String info = st.nextToken();
+//			st.nextToken();
+     			
+			newString = newString.replaceAll(" ","");
 			
-			try{
-				
-			st = new StringTokenizer(newString);
-			
-			st.nextToken();
-			String info = st.nextToken();
-			st.nextToken();
-			
-			
+			System.out.println("TEST:  " + newString);
 			if(s.equals("S")){
 								
-			notifyObservers(info);
+			notifyObservers(newString);
 			setChanged();	
 			
 			try{
 				
 				if(db.getDatabase().isConnected()){
 					
-					db.getDatabase().addData(info);
+					db.getDatabase().addData(newString);
 
 				}else{
 					
@@ -95,14 +96,14 @@ public class BluetoothReader extends SerialReader{
 			
 			}else if(s.equals("C")){
 				
-				info = info.replaceAll("_", " ");
-				System.out.println(info);
+				newString = newString.replaceAll("_", " ");
+				System.out.println(newString);
 				
 				try{
 					
 					if(db.getDatabase().isConnected()){
 						
-						db.getDatabase().addComment(info);
+						db.getDatabase().addComment(newString);
 
 					}else{
 						

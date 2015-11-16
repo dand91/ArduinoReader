@@ -104,7 +104,7 @@ public class Database {
 		try {
 
 			PreparedStatement ps = conn
-					.prepareStatement("SELECT * FROM Data LIMIT ?;");
+					.prepareStatement("SELECT value, date FROM data ORDER BY date DESC LIMIT ?;");
 			ps.setInt(1, nbr);
 			ResultSet rs = ps.executeQuery();
 

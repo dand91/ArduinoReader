@@ -48,7 +48,6 @@ public abstract class SerialReader extends Observable implements SerialPortEvent
 		  System.out.println("RING - RI signal changes state "  + serialPort.isRING());
 		  System.out.println("RLSD - Receive Line Signal Detect "  + serialPort.isRLSD());
 
-
 	}
 	
 	/**
@@ -79,8 +78,7 @@ public abstract class SerialReader extends Observable implements SerialPortEvent
 			serialPort.writeString(s);
 		} catch (SerialPortException e) {
 			e.printStackTrace();
-		}
-		
+		}	
 	}
 	
 	/**
