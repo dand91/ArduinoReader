@@ -13,18 +13,18 @@ import Terminal.Terminal;
 
 public class MainClass {
 
-	private BluetoothReader reader;
-	private Thread threadReader;
-	private Thread threadCommander;
-	private Database db;
-	private Commander cmd;
+	protected BluetoothReader reader;
+	protected Thread threadReader;
+	protected Thread threadCommander;
+	protected Database db;
+	protected Commander cmd;
 
 	public MainClass() {
 		
 		initiatePython();
 		initiateDatabase();
 		initiateReader();
-		initiateCommander();
+		initiateCommander(); 
 		initiateDisplay();
 	}
 
@@ -76,7 +76,7 @@ public class MainClass {
 	
 	public void initiatePython(){
 		
-		String[] python = {"python" , "/Users/Andersson/Desktop/pyPrint.py"};
+		String[] python = {"python" , "/Users/Andersson/Google Drive/Java_saved_files/Bluetooth_workspace/Bluetooth_Connector/python/pyprint.py"};
 		Terminal term = new Terminal(python);
 		Thread pythonThread = new Thread(term);
 		pythonThread.start();
@@ -85,9 +85,37 @@ public class MainClass {
 
 	public static void main(String[] args) {
 
-		new MainClass();
-
+		MainClass mc = null;
+		
+		 try {
+				 mc = new MainClass();
+				
+			 } catch (Exception ex) {
+				 
+				 System.out.println("Execution error, shutting down.");
+				 ex.getStackTrace();
+				 System.exit(0);
+			 }
+		 
+		 Runtime.getRuntime().addShutdownHook(new Shutdown(mc));
 	}
 }
 		
 
+class Shutdown extends Thread{
+	
+	MainClass mc;
+
+	public Shutdown(MainClass mc){
+		
+		this.mc = mc;
+	}
+	
+	public void start(){
+		
+		mc.reader.closePort();
+		mc.db.closeConnection();
+		System.out.println("Shutting down");
+
+	}
+}

@@ -5,11 +5,14 @@ import java.util.Scanner;
 
 public class Commander implements Runnable {
 
-	SerialReader reader;
+	JavaCommander jcmd;
+	ReaderCommander rcmd;
 	
 	public Commander(SerialReader reader){
 		
-		this.reader = reader;
+		jcmd = new JavaCommander();
+		rcmd = new ReaderCommander(reader);
+		
 	}
 	@Override
 	public void run() {
@@ -22,7 +25,17 @@ public class Commander implements Runnable {
 	      try {
 
 	      String s = in.nextLine();	
-	      reader.print(s);
+	      
+	      String[] cmdList = s.split(":");
+	      
+	      if(cmdList[0].equals("CMD") || cmdList[0].equals("PWD")){
+	    	  
+	    	  rcmd.exec(s);
+	    	  
+	      }else if(cmdList[0].equals("CMDJ") || cmdList[0].equals("PWDJ")){
+	    	  
+	    	  jcmd.exec(s);
+	      }
 	      
 	      Thread.sleep(500);
 			

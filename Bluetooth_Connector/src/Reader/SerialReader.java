@@ -20,8 +20,8 @@ public abstract class SerialReader extends Observable implements SerialPortEvent
 	
 	protected StringBuilder sb = new StringBuilder();
 	protected SerialPort serialPort;
+	protected String currentPort; 
 	
-	@SuppressWarnings("static-access")
 	public SerialReader() throws SerialPortException {
 		
 		
@@ -37,17 +37,19 @@ public abstract class SerialReader extends Observable implements SerialPortEvent
 		  Scanner in = new Scanner(System.in);
 		  System.out.println("Enter portnumber: ");
 	      int portNbr = Integer.valueOf(in.nextLine());	
-		
-		  serialPort = new SerialPort(portNames[portNbr]);
-		  serialPort.openPort();
-		  serialPort.setParams(serialPort.BAUDRATE_9600, 8, 1, 0);
-		  serialPort.addEventListener(this);
-		  
-		  System.out.println("CTS - Clear To Send "  + serialPort.isCTS());
-		  System.out.println("DSR - Data Set Ready "  + serialPort.isDSR());
-		  System.out.println("RING - RI signal changes state "  + serialPort.isRING());
+		  currentPort = portNames[portNbr];
+		  initiatePort();
 		  System.out.println("RLSD - Receive Line Signal Detect "  + serialPort.isRLSD());
 
+	}
+	
+	public void initiatePort() throws SerialPortException{
+		
+		  serialPort = new SerialPort(currentPort);
+		  serialPort.openPort();
+		  serialPort.setParams(SerialPort.BAUDRATE_9600, 8, 1, 0);
+		  serialPort.addEventListener(this);
+		  
 	}
 	
 	/**
@@ -57,11 +59,10 @@ public abstract class SerialReader extends Observable implements SerialPortEvent
 	@Override
 	public void serialEvent(SerialPortEvent arg0) {
 		
-		
 		try {
-			
+			if(arg0.isRXCHAR()){
 			sb.append(serialPort.readString());
-			
+			}
 		} catch (SerialPortException e) {
 				
 			e.printStackTrace();
@@ -87,6 +88,7 @@ public abstract class SerialReader extends Observable implements SerialPortEvent
 	public void closePort() {
 
 		try {
+			System.out.println("Closing serial port");
 			serialPort.closePort();
 		} catch (SerialPortException e) {
 			e.printStackTrace();

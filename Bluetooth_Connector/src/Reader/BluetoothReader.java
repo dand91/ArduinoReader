@@ -7,9 +7,7 @@ import jssc.SerialPortException;
 
 public class BluetoothReader extends SerialReader{
 
-	
-	//private StringTokenizer st;
-	private Database db;
+		private Database db;
 	
 	public BluetoothReader() throws SerialPortException  {
 		
@@ -20,6 +18,7 @@ public class BluetoothReader extends SerialReader{
 		}
 	}
 
+	@Override
 	public void run(){
 
 			try{		        
@@ -56,22 +55,14 @@ public class BluetoothReader extends SerialReader{
 			int start = string.indexOf(s);
 			int end = string.indexOf( s + "*");
 									
-			newString = (String) sb.substring(start + 1, end);
+			newString = sb.substring(start + 1, end);
 			sb.delete(start, end + 2 );
 
-		
      		try{
-//				
-//			st = new StringTokenizer(newString);
-//			
-//			st.nextToken();
-//			String info = st.nextToken();
-//			st.nextToken();
-     			
+
 			newString = newString.replaceAll(" ","");
 			
-			System.out.println("TEST:  " + newString);
-			if(s.equals("S")){
+			if(s.equals("S")){ 
 								
 			notifyObservers(newString);
 			setChanged();	

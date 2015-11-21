@@ -1,6 +1,9 @@
 
 package Storage;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import Shared.Data;
 
 
@@ -22,10 +26,21 @@ public class Database {
 	private Connection conn;
 	protected boolean connected;
     private static Database db;
-
+    private static String PASSWORD;
 
     public static void initiate() {
         db = new Database();
+        
+        try {
+
+        BufferedReader br = new BufferedReader(new FileReader("/Users/Andersson/Google Drive/Java_saved_files/Bluetooth_workspace/Bluetooth_Connector/password/password.txt"));
+		PASSWORD = br.readLine();
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     public static Database getInstance() throws Exception {
@@ -53,7 +68,7 @@ public class Database {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost/bluetooth", "DAnd91", "Taylorutveckling");
+					"jdbc:mysql://localhost/bluetooth", "DAnd91", PASSWORD);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -157,6 +172,24 @@ public class Database {
 
 		
 	}
+	public void clearDB(){
+		
+
+		PreparedStatement ps;
+		try {
+			ps = conn
+					.prepareStatement("DELETE FROM Data");
+	
+		ps.execute();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		
+	}
+	
+	
 	
 }
 

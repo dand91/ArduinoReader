@@ -14,6 +14,7 @@ public class Terminal implements Runnable {
 		
 	}
 	
+	@Override
 	public void run(){
 		
 		String s = null;
@@ -35,7 +36,7 @@ public class Terminal implements Runnable {
  
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.exit(-1);
+			System.exit(0);
 		}
 		
 	}
