@@ -35,6 +35,14 @@ public class Commander implements Runnable {
 	      }else if(cmdList[0].equals("CMDJ") || cmdList[0].equals("PWDJ")){
 	    	  
 	    	  jcmd.exec(s);
+	    	  
+	      }else if(cmdList[0].equals("help")){
+	    	  
+	    	  System.out.println("PWD:___");
+	    	  System.out.println("CMD:stop");
+	    	  System.out.println("CMD:rate:___");
+	    	  System.out.println("CMDJ:clear");
+
 	      }
 	      
 	      Thread.sleep(500);

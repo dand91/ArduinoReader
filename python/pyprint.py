@@ -6,6 +6,8 @@ import sys
 class ArduinoPrint:
     
     __password = "";
+    __username = "";
+    __database = "";
     
     def __init__(self):
        
@@ -13,21 +15,25 @@ class ArduinoPrint:
         
     def setPassword(self):
         
-        text_file = open("/Users/Andersson/Google Drive/Java_saved_files/Bluetooth_workspace/Bluetooth_Connector/password/password.txt", "r")
-        self.__password = text_file.readline()       
-        
+        text_file = open("/Users/Andersson/Google Drive/Java_saved_files/Bluetooth_workspace/Bluetooth_Connector/info/info.txt", "r")
+        self.__password = text_file.readline().rstrip('\n')   
+        self.__username = text_file.readline().rstrip('\n')      
+        self.__database = text_file.readline().rstrip('\n')      
+
     def handle_close(evt):
         
         sys.exit(0)    
         
     def run(self):
+        
+        
         plt.ylabel('Light')
         
         while True: 
 
-            cnx = mysql.connector.connect(user='DAnd91', password=self.__password,
+            cnx = mysql.connector.connect(user=self.__username, password=self.__password,
                                       host='127.0.0.1',
-                                      database='bluetooth')
+                                      database=self.__database)
             cursor = cnx.cursor()
             query = ("SELECT value FROM data ORDER BY date DESC LIMIT 1000;")
             cursor.execute(query)
@@ -43,8 +49,6 @@ class ArduinoPrint:
             cnx.close()
             plt.cla()
         
-    
-
 
 if __name__ == "__main__":
     app = ArduinoPrint()

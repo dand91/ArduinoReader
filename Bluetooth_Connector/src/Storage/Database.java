@@ -27,19 +27,23 @@ public class Database {
 	protected boolean connected;
     private static Database db;
     private static String PASSWORD;
+    private static String USERNAME;
+    private static String DATABASE;
 
     public static void initiate() {
         db = new Database();
         
         try {
 
-        BufferedReader br = new BufferedReader(new FileReader("/Users/Andersson/Google Drive/Java_saved_files/Bluetooth_workspace/Bluetooth_Connector/password/password.txt"));
+        @SuppressWarnings("resource")
+		BufferedReader br = new BufferedReader(new FileReader("/Users/Andersson/Google Drive/Java_saved_files/Bluetooth_workspace/Bluetooth_Connector/info/info.txt"));
 		PASSWORD = br.readLine();
-			
-			
+		USERNAME = br.readLine();
+		DATABASE = br.readLine();
+
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.out.println("Unable to read info file");
 		}
     }
 
@@ -68,7 +72,7 @@ public class Database {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost/bluetooth", "DAnd91", PASSWORD);
+					"jdbc:mysql://localhost/" + DATABASE, USERNAME, PASSWORD);
 
 		} catch (SQLException e) {
 			e.printStackTrace();

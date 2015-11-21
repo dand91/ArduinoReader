@@ -16,3 +16,7 @@ Plugins/.DS_Store
 Bluetooth_Connector/.DS_Store
 
 Bluetooth_Connector/src/.DS_Store
+
+*.class
+
+Bluetooth_Connector/bin/.DS_Store

@@ -21,6 +21,7 @@ public class MainClass {
 
 	public MainClass() {
 		
+		initiateBluetoothRestart();
 		initiatePython();
 		initiateDatabase();
 		initiateReader();
@@ -82,12 +83,20 @@ public class MainClass {
 		pythonThread.start();
 		
 	}
+	public void initiateBluetoothRestart(){
+		
+		String[] restart = {"/Users/Andersson/Google Drive/Java_saved_files/Bluetooth_workspace/Bluetooth_Connector/bluetooth/bluetoothRestart"};
+		Terminal term = new Terminal(restart);
+		Thread restartThread = new Thread(term);
+		restartThread.start();
+	}
 
 	public static void main(String[] args) {
 
 		MainClass mc = null;
 		
 		 try {
+			
 				 mc = new MainClass();
 				
 			 } catch (Exception ex) {
