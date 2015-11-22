@@ -1,12 +1,10 @@
-package Reader;
+package Command;
 
 import Storage.Database;
 
 public abstract class CommandExecutor {
 	
 	Database db;
-	
-	
 
 	public CommandExecutor(){
 					

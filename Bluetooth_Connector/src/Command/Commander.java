@@ -1,7 +1,9 @@
-package Reader;
+package Command;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import Reader.SerialReader;
 
 public class Commander implements Runnable {
 
@@ -21,7 +23,9 @@ public class Commander implements Runnable {
 	   	  Scanner in = new Scanner(System.in);
 		  
 		  while(true){
+			  
 	      System.out.println("Enter command:");
+	      
 	      try {
 
 	      String s = in.nextLine();	
@@ -43,7 +47,6 @@ public class Commander implements Runnable {
 	    	  System.out.println("CMD:rate:___");
 	    	  System.out.println("CMDJ:clear");
 	    	  System.out.println("CMDJ:exit");
-
 
 	      }else{
 	    	  

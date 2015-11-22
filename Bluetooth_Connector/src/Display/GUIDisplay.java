@@ -1,12 +1,7 @@
-package Main;
+package Display;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.text.DecimalFormat;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -14,17 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
-import Shared.Data;
-import Storage.Database;
-
-public class Display implements Observer {
-	
-	DescriptiveStatistics stats;
-	DecimalFormat df = new DecimalFormat("#.###");
-	Database db;
-	int nbrSample = 1000;
+public class GUIDisplay extends Display {
 	
 	JTextField valueTextField;
 	JTextField meanTextField;
@@ -32,45 +18,20 @@ public class Display implements Observer {
 	JTextField kurtTextField;
 	JTextField scewTextField;
 	
-	public Display(){
-		
-		stats = new DescriptiveStatistics();
-		
-		try {
-			this.db = Database.getInstance();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public GUIDisplay(){
 		
 		initiateJFrame();
+		
 	}
 	
-	@Override
-	public void update(Observable o, Object arg) {
+	public void exec(){
 		
-		String value = (String) arg;
-
-		List<Data> list = db.getData(nbrSample);
-		
-		stats.clear();
-		
-		for( int i = 0; i < list.size(); i++) {
-			
-			stats.addValue( Integer.valueOf(list.get(i).getValue()) );
-			
-		}
-
-		double mean = stats.getMean();
-		double std = stats.getStandardDeviation();
-		double scew = stats.getSkewness();
-		double kurt = stats.getKurtosis();
-				
 		valueTextField.setText(value);
 		meanTextField.setText(df.format(mean));
 		stdTextField.setText(df.format(std));
 		kurtTextField.setText(df.format(kurt));
 		scewTextField.setText(df.format(scew));
-
+		
 	}
 	
 	public void initiateJFrame(){

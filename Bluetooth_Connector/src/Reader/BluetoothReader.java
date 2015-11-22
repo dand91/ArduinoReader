@@ -1,6 +1,7 @@
 package Reader;
 
 import java.util.NoSuchElementException;
+
 import Storage.Database;
 import jssc.SerialPortException;
 
@@ -15,8 +16,12 @@ public class BluetoothReader extends SerialReader{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		  System.out.println("RLSD - Receive Line Signal Detect "  + serialPort.isRLSD());
+
 	}
 
+	
 	@Override
 	public void run(){
 

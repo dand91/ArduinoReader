@@ -1,8 +1,12 @@
 package Main;
 
+import java.util.Scanner;
+
 import jssc.SerialPortException;
+import Command.Commander;
+import Display.GUIDisplay;
+import Display.TerminalDisplay;
 import Reader.BluetoothReader;
-import Reader.Commander;
 import Storage.Database;
 import Terminal.Terminal;
 
@@ -18,15 +22,15 @@ public class MainClass {
 	protected Thread threadCommander;
 	protected Database db;
 	protected Commander cmd;
-
+	
 	public MainClass() {
 		
 		initiateBluetoothRestart();
 		initiatePython();
 		initiateDatabase();
 		initiateReader();
-		initiateCommander(); 
 		initiateDisplay();
+		initiateCommander(); 
 	}
 
 	public void initiateDatabase() {
@@ -60,6 +64,7 @@ public class MainClass {
 		threadReader.start();
 		reader.deleteObservers();
 	}
+	
 
 	public void initiateCommander() {
 
@@ -70,9 +75,29 @@ public class MainClass {
 
 	public void initiateDisplay() {
 
-		Display ds = new Display();
+		
+		@SuppressWarnings("resource")
+		Scanner in = new Scanner(System.in);
+		System.out.println("Do you want do display in GUI or terminal? ");
+		System.out.println("D - Display");
+		System.out.println("T - Terminal");
+		
+	    String s = in.nextLine();	
+	    
+	    if(s.equals("D")){
+	    	
+		GUIDisplay ds = new GUIDisplay();
 		reader.addObserver(ds);
-
+		
+	    }else if(s.equals("T")){
+	    
+	    TerminalDisplay ds = new TerminalDisplay();
+	    reader.addObserver(ds);
+	    	
+	    }else{
+	    	
+	    	initiateDisplay();
+	    }
 	}
 	
 	public void initiatePython(){

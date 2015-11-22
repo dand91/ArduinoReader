@@ -24,7 +24,6 @@ public abstract class SerialReader extends Observable implements SerialPortEvent
 	
 	public SerialReader() throws SerialPortException {
 		
-		
 		String[] portNames = SerialPortList.getPortNames("/dev/", Pattern.compile("tty."));
 		
 		for(int i = 0; i < portNames.length; i++){
@@ -39,7 +38,6 @@ public abstract class SerialReader extends Observable implements SerialPortEvent
 	      int portNbr = Integer.valueOf(in.nextLine());	
 		  currentPort = portNames[portNbr];
 		  initiatePort();
-		  System.out.println("RLSD - Receive Line Signal Detect "  + serialPort.isRLSD());
 
 	}
 	

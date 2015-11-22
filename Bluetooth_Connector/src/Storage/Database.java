@@ -178,13 +178,9 @@ public class Database {
 
 		PreparedStatement ps;
 		try {
-			ps = conn.prepareStatement("DELETE FROM Data");
+			ps = conn.prepareStatement("DELETE FROM Data, Comment, Command");
 			ps.execute();
-			ps = conn.prepareStatement("DELETE FROM Comment");
-			ps.execute();
-			ps = conn.prepareStatement("DELETE FROM Command");
-			ps.execute();
-		
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

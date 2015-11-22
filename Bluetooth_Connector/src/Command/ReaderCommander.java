@@ -1,4 +1,6 @@
-package Reader;
+package Command;
+
+import Reader.SerialReader;
 
 public class ReaderCommander extends CommandExecutor{
 	

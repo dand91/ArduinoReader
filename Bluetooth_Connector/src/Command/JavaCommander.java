@@ -1,4 +1,4 @@
-package Reader;
+package Command;
 
 
 public class JavaCommander extends CommandExecutor{
