@@ -1,29 +1,9 @@
 package Reader;
 
-import Storage.Database;
 
-public class JavaCommander {
+public class JavaCommander extends CommandExecutor{
 	
-	Database db;
-	
-	public JavaCommander(){
-		
-		try {
-			
-			Database.initiate();
-			db = Database.getInstance();
-			if (db.openConnection()) {
-				System.out.println("Database started");
-			} else {
-				System.out.println("Unable to start database");
-			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			System.exit(1);
-		}
-	}
-	
-	public void exec(String s){
+	public void interexec(String s){
 		
 	      String[] cmdList = s.split(":");
 
@@ -31,6 +11,13 @@ public class JavaCommander {
 	    	  
 	    	 db.clearDB();
 	    	  
+	      }else if(cmdList[1].equals("exit")){
+	    	  
+	    	  System.exit(0);
+	    	  
+	      }else{
+	    	  
+	    	  System.out.println("Incorrect subcommand");
 	      }
 		
 	}

@@ -1,7 +1,6 @@
 package Reader;
 
 import java.util.NoSuchElementException;
-//import java.util.StringTokenizer;
 import Storage.Database;
 import jssc.SerialPortException;
 

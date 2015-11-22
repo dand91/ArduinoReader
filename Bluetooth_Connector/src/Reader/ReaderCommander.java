@@ -1,6 +1,6 @@
 package Reader;
 
-public class ReaderCommander {
+public class ReaderCommander extends CommandExecutor{
 	
 	SerialReader reader;
 	
@@ -9,10 +9,9 @@ public class ReaderCommander {
 		this.reader = reader;
 		
 	}
-	public void exec(String s){
+	public void interexec(String s){
 		
 		reader.print(s);
-		
-	}
 
+	}	
 }

@@ -16,7 +16,7 @@ import Shared.Data;
 
 
 /**
- * Database is a class that specifies the interface to the movie database. Uses
+ * Database is a class that specifies the interface to the bluetooth database. Uses
  * JDBC and the MySQL Connector/J driver.
  */
 public class Database {
@@ -156,12 +156,10 @@ public class Database {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		
 	}
 	public void addComment(String input){
 		
-
 		PreparedStatement ps;
 		try {
 			ps = conn
@@ -174,23 +172,39 @@ public class Database {
 			e.printStackTrace();
 		}
 
-		
 	}
 	public void clearDB(){
 		
 
 		PreparedStatement ps;
 		try {
-			ps = conn
-					.prepareStatement("DELETE FROM Data");
-	
-		ps.execute();
+			ps = conn.prepareStatement("DELETE FROM Data");
+			ps.execute();
+			ps = conn.prepareStatement("DELETE FROM Comment");
+			ps.execute();
+			ps = conn.prepareStatement("DELETE FROM Command");
+			ps.execute();
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		System.out.println("Database cleared");
 		
+	}
+
+	public void addCommand(String input) {
+		
+		PreparedStatement ps;
+		try {
+			ps = conn
+					.prepareStatement("INSERT INTO Command (command, date)  VALUES ( ?, NOW());");
+	
+		ps.setString(1, input);
+		ps.execute();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
 	}
 	
 	

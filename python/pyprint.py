@@ -10,9 +10,9 @@ class ArduinoPrint:
     __database = "";
     
     def __init__(self):
-       
-       print("Arduino plot started")
         
+        print("Arduino plot started")
+
     def setPassword(self):
         
         text_file = open("/Users/Andersson/Google Drive/Java_saved_files/Bluetooth_workspace/Bluetooth_Connector/info/info.txt", "r")
@@ -22,6 +22,7 @@ class ArduinoPrint:
 
     def handle_close(evt):
         
+        plt.close('all')
         sys.exit(0)    
         
     def run(self):
@@ -51,6 +52,7 @@ class ArduinoPrint:
         
 
 if __name__ == "__main__":
+    
     app = ArduinoPrint()
     app.setPassword()
     app.run()

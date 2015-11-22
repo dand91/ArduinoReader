@@ -89,11 +89,24 @@ public class MainClass {
 		Terminal term = new Terminal(restart);
 		Thread restartThread = new Thread(term);
 		restartThread.start();
+		
+		while(restartThread.isAlive()){
+			
+			try {
+
+				Thread.sleep(100);
+				
+			} catch (InterruptedException e) {
+				System.out.println("Main thread sleep error");
+			}
+		}
 	}
 
 	public static void main(String[] args) {
 
 		MainClass mc = null;
+		Runtime.getRuntime().addShutdownHook(new Shutdown(mc));
+
 		
 		 try {
 			
@@ -106,7 +119,6 @@ public class MainClass {
 				 System.exit(0);
 			 }
 		 
-		 Runtime.getRuntime().addShutdownHook(new Shutdown(mc));
 	}
 }
 		
@@ -118,13 +130,14 @@ class Shutdown extends Thread{
 	public Shutdown(MainClass mc){
 		
 		this.mc = mc;
+
 	}
 	
 	public void start(){
 		
+		System.out.println("Shutting down");
 		mc.reader.closePort();
 		mc.db.closeConnection();
-		System.out.println("Shutting down");
 
 	}
 }
